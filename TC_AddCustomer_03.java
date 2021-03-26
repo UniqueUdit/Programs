@@ -1,5 +1,6 @@
 package com.banking.testCases;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -108,34 +109,31 @@ public class TC_AddCustomer_03 extends BaseClass{
       customerID = driver.findElement(By.xpath("//table[@id='customer']/tbody[1]/tr[4]/td[2]")).getText();
       //System.out.println(customerID);
       logger.info(customerID);
-      File file = new File("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\Customer1.txt"); //initialize File object and passing path as argument  
-      boolean result;  
-      try   
-      {  
-      result = file.createNewFile();  //creates a new file  
-      if(result)      // test if successfully created a new file  
-      {  
-      System.out.println("file created "+file.getCanonicalPath()); //returns the path string  
-      }  
-      else  
-      {  
-      System.out.println("File already exist at location: "+file.getCanonicalPath());  
-      }  
-      }   
-      catch (IOException e)   
-      {  
-      e.printStackTrace();    //prints exception if any  
-      } 
-      try 
-      {
-          FileWriter myWriter = new FileWriter("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\Customer1.txt");
-          myWriter.write(customerID);
-          myWriter.close();
-          }
-      catch (IOException e) {
-          System.out.println("An error occurred.");
-          e.printStackTrace();
-        }
+      
+      
+      try{
+    	    
+    	    File file = new File("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\Customer1.txt");
+
+    	    // if file doesnt exists, then create it
+    	    if (!file.exists()) {
+    	        file.createNewFile();
+    	        FileWriter myWriter = new FileWriter("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\Customer1.txt");
+    	        myWriter.write(customerID);
+    	        myWriter.close();
+    	    }else{
+
+    	    }
+
+    	    FileWriter fw = new FileWriter(file.getAbsoluteFile());
+    	    BufferedWriter bw = new BufferedWriter(fw);
+    	    bw.write(customerID);
+    	    bw.close();
+
+    	    System.out.println("Done");
+    	}catch(IOException e){
+    	    e.printStackTrace();
+    	}
   }
 
 }
