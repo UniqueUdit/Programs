@@ -33,7 +33,7 @@ public class TC_LoginExcel_02 extends BaseClass
 		lp.clickLogout();
 		Thread.sleep(3000);
 		
-		if(isAlertPresent()==true)
+		if(isAlertPresent()==false)
 		{
 			driver.switchTo().alert().accept();//close alert
 			driver.switchTo().defaultContent();
@@ -75,7 +75,7 @@ public class TC_LoginExcel_02 extends BaseClass
 	public Object[][] TestDataFeed(){
 	
 		try{
-			wb=Workbook.getWorkbook(new File("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\Selenium Project\\Banking_Project\\TestData\\LoginData1.xls"));
+			wb=Workbook.getWorkbook(new File("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\Selenium Project\\Banking_Project\\TestData\\LoginData2.xls"));
 		
 		sh=wb.getSheet(0);
 		rows=sh.getRows();
@@ -85,7 +85,7 @@ public class TC_LoginExcel_02 extends BaseClass
 			e.printStackTrace();
 			}
 			Object[][] Book2=new Object[rows][sh.getColumns()];
-			for(int i=0;i<5;i++) {
+			for(int i=0;i<rows;i++) {
 				Book2[i][0]=sh.getCell(0, i).getContents();
 				Book2[i][1]=sh.getCell(1, i).getContents();
 			}
