@@ -1,5 +1,6 @@
 package com.banking.testCases;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -68,34 +69,29 @@ public void loginTest() throws Exception {
 
  Boolean home = driver.findElement(By.xpath("html[1]/body[1]/p[1]/a[1]")).isDisplayed();
  System.out.println("Home = "+home);
- File file = new File("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\AccountId1s.txt"); //initialize File object and passing path as argument  
- boolean result;  
- try   
- {  
- result = file.createNewFile();  //creates a new file  
- if(result)      // test if successfully created a new file  
- {  
- System.out.println("file created "+file.getCanonicalPath()); //returns the path string  
- }  
- else  
- {  
- System.out.println("File already exist at location: "+file.getCanonicalPath());  
- }  
- }   
- catch (IOException e)   
- {  
- e.printStackTrace();    //prints exception if any  
- } 
- try 
- {
-     FileWriter myWriter = new FileWriter("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\AccountId1.txt");
-     myWriter.write(AccountID1);
-     myWriter.close();
-     }
- catch (IOException e) {
-     System.out.println("An error occurred.");
-     e.printStackTrace();
-   }
+ try{
+	    
+	    File file = new File("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\AccountId1.txt");
+
+	    // if file doesnt exists, then create it
+	    if (!file.exists()) {
+	        file.createNewFile();
+	        FileWriter myWriter = new FileWriter("C:\\Users\\User8\\OneDrive - HCL Technologies Ltd\\Desktop\\AccountId1.txt");
+	        myWriter.write(AccountID1);
+	        myWriter.close();
+	    }else{
+
+	    }
+
+	    FileWriter fw = new FileWriter(file.getAbsoluteFile());
+	    BufferedWriter bw = new BufferedWriter(fw);
+	    bw.write(AccountID1);
+	    bw.close();
+
+	    System.out.println("Done");
+	}catch(IOException e){
+	    e.printStackTrace();
+	}
 }
 
 }
